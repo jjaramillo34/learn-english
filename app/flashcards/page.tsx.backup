@@ -58,8 +58,8 @@ export default function Page() {
       // Store username in sessionStorage
       sessionStorage.setItem('username', username.trim().toLowerCase());
       
-      // Redirect to categories page first
-      router.push('/categories?language=spanish');
+      // Redirect to flashcards page
+      router.push('/flashcards');
     } catch (err) {
       setError('An error occurred. Please try again.');
       setLoading(false);

@@ -1,36 +1,134 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Language Learning Flashcards
+
+An interactive language learning application built with Next.js, featuring flashcards for learning English, Spanish, French, and Japanese.
+
+## Features
+
+- 📚 **Multiple Languages**: Learn English, Spanish, French, or Japanese
+- 🎯 **Interactive Flashcards**: Flip cards to reveal translations
+- 🔊 **Audio Pronunciation**: Text-to-speech with word-by-word pronunciation
+- 👤 **User Progress Tracking**: Save your progress with MongoDB
+- 🎨 **Dark/Light Theme**: Beautiful themes with smooth transitions
+- 📱 **Mobile Friendly**: Fully responsive design
+- 🎲 **Shuffle Cards**: Mix up your learning order
+- ✅ **Mark as Learned**: Track which cards you've mastered
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+ 
+- MongoDB database (local or MongoDB Atlas)
+
+### Installation
+
+1. Clone the repository and install dependencies:
+
+```bash
+npm install
+```
+
+2. Set up MongoDB:
+
+   - Option A: Use MongoDB Atlas (recommended for production)
+     1. Create a free account at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+     2. Create a new cluster
+     3. Get your connection string
+
+   - Option B: Use local MongoDB
+     - Install MongoDB locally
+     - Default connection: `mongodb://localhost:27017/learn-english`
+
+3. Create a `.env.local` file in the root directory:
+
+```bash
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/?retryWrites=true&w=majority
+```
+
+Or for local MongoDB:
+```bash
+MONGODB_URI=mongodb://localhost:27017/learn-english
+```
+
+4. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Usage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Enter Username**: On the homepage, enter a username (minimum 3 characters)
+2. **Start Learning**: You'll be redirected to the flashcards page
+3. **Flip Cards**: Click on any card to flip it and see the translation
+4. **Listen**: Click the speaker icon to hear pronunciation
+5. **Word-by-Word**: Click individual words at the bottom to hear them pronounced separately
+6. **Track Progress**: Mark cards as learned to track your progress
+7. **Switch Themes**: Use the theme toggle button in the top-right corner
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+learn-english/
+├── app/
+│   ├── api/
+│   │   └── users/          # API routes for user management
+│   ├── flashcards/         # Flashcards study page
+│   ├── page.tsx            # Homepage with username form
+│   ├── layout.tsx          # Root layout
+│   └── globals.css         # Global styles
+├── components/
+│   └── Flashcard.tsx       # Flashcard component
+├── lib/
+│   ├── languageData.ts     # Language data and flashcards
+│   ├── models/
+│   │   └── User.ts         # User model and database functions
+│   ├── mongodb.ts          # MongoDB connection
+│   ├── useSpeech.ts        # Speech synthesis hook
+│   ├── useTheme.ts         # Theme management hook
+│   └── useVoices.ts        # Voice selection hook
+└── package.json
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technologies Used
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Next.js 16**: React framework
+- **TypeScript**: Type safety
+- **Tailwind CSS v4**: Styling
+- **MongoDB**: Database for user progress
+- **Web Speech API**: Text-to-speech functionality
+- **Lucide React**: Icons
 
-## Deploy on Vercel
+## Environment Variables
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `MONGODB_URI`: MongoDB connection string (required for database features)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Database Schema
+
+The application stores user data in MongoDB with the following structure:
+
+```typescript
+{
+  username: string;
+  learnedCards: string[];        // Array of card IDs
+  currentLanguage?: string;      // Last selected language
+  currentIndex?: number;         // Last viewed card index
+  createdAt: Date;
+  updatedAt: Date;
+}
+```
+
+## Build for Production
+
+```bash
+npm run build
+npm start
+```
+
+## Notes
+
+- If MongoDB is not configured, the app will still work but won't save progress
+- Progress is saved to sessionStorage in the browser
+- Users can switch accounts using the "Switch User" button
