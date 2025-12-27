@@ -14,17 +14,19 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = 'https://learn-english-flash.vercel.app';
+
 export const metadata: Metadata = {
-  title: "Language Flashcards - Learn Languages",
+  title: "Learn English Flashcards - Learn Languages",
   description: "Interactive language flashcards for learning English, Spanish, French, and Japanese",
-  metadataBase: new URL('https://language-flashcards.vercel.app'),
+  metadataBase: new URL(siteUrl),
   openGraph: {
-    title: "Language Flashcards - Learn Languages",
+    title: "Learn English Flashcards - Learn Languages",
     description: "Interactive language flashcards for learning English, Spanish, French, and Japanese",
-    url: 'https://language-flashcards.vercel.app',
-    siteName: "Language Flashcards",
+    url: siteUrl,
+    siteName: "Learn English Flashcards",
     images: [
-      { url: '/og-image.png' },
+      { url: `${siteUrl}/og-image.png` },
     ],
     locale: 'en_US',
     type: 'website',

@@ -3,10 +3,11 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTheme } from '@/lib/useTheme';
+import { Sun, Moon } from 'lucide-react';
 
 export default function Page() {
   const router = useRouter();
-  const { theme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -72,6 +73,20 @@ export default function Page() {
       {/* Background elements */}
       <div className="absolute top-0 right-0 w-64 h-64 sm:w-96 sm:h-96 bg-blue-300/30 dark:bg-blue-500/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
       <div className="absolute bottom-0 left-0 w-48 h-48 sm:w-96 sm:h-96 bg-purple-300/30 dark:bg-purple-500/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+
+      {/* Theme Toggle Button */}
+      <button
+        onClick={toggleTheme}
+        className="fixed top-3 right-3 sm:top-4 sm:right-4 md:top-6 md:right-6 z-50 p-2.5 sm:p-3 bg-slate-800/10 dark:bg-white/10 backdrop-blur-sm border border-slate-300/30 dark:border-white/20 rounded-full hover:bg-slate-800/20 dark:hover:bg-white/20 transition-all hover:scale-110 active:scale-95 shadow-lg touch-manipulation"
+        aria-label="Toggle theme"
+        title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+      >
+        {theme === 'dark' ? (
+          <Sun className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-400" />
+        ) : (
+          <Moon className="h-4 w-4 sm:h-5 sm:w-5 text-indigo-600 dark:text-indigo-400" />
+        )}
+      </button>
 
       <div className="relative z-10 w-full max-w-md">
         <div className="bg-white/80 dark:bg-white/5 backdrop-blur-sm border border-slate-200 dark:border-white/10 rounded-2xl p-6 sm:p-8 shadow-xl dark:shadow-none">

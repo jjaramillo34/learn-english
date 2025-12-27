@@ -15,6 +15,8 @@ export interface User {
   currentLanguage?: string;
   currentIndex?: number;
   selectedCategories?: string[]; // Selected categories to study
+  role?: 'user' | 'admin'; // User role, defaults to 'user'
+  password?: string; // Hashed password for admin users
 }
 
 const DB_NAME = 'learn-english';
@@ -28,6 +30,7 @@ export async function createUser(username: string): Promise<User> {
       learnedCards: [],
       createdAt: new Date(),
       updatedAt: new Date(),
+      role: 'user',
     };
   }
 
@@ -46,6 +49,7 @@ export async function createUser(username: string): Promise<User> {
     learnedCards: [],
     createdAt: new Date(),
     updatedAt: new Date(),
+    role: 'user',
   };
 
   const result = await collection.insertOne(newUser);
@@ -101,6 +105,8 @@ export async function updateUserProgress(
     currentLanguage?: string;
     currentIndex?: number;
     selectedCategories?: string[];
+    role?: 'user' | 'admin';
+    password?: string;
   }
 ): Promise<User | null> {
   if (!clientPromise) {

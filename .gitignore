@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# ADMIN_SETUP.md
+ADMIN_SETUP.md
+
+# scripts
+scripts/
