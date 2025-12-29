@@ -17,32 +17,23 @@ export function useVoices() {
 
     const loadVoices = () => {
       const availableVoices = window.speechSynthesis.getVoices();
-      // Filter for female voices
-      const femaleVoices = availableVoices.filter((voice) => {
+      
+      // Filter to only Google voices for English and Spanish
+      const filteredVoices = availableVoices.filter((voice) => {
         const name = voice.name.toLowerCase();
-        // Exclude obvious male indicators
-        const isNotMale = !name.includes('male') && !name.includes('david') && 
-                         !name.includes('daniel') && !name.includes('james') &&
-                         !name.includes('john') && !name.includes('mark') &&
-                         !name.includes('thomas') && !name.includes('alex') &&
-                         !name.includes('tom') && !name.includes('fred');
-        // Prefer voices that explicitly mention female characteristics or common female names
-        const isFemale = name.includes('female') || name.includes('woman') ||
-                        name.includes('zira') || name.includes('hazel') ||
-                        name.includes('samantha') || name.includes('karen') ||
-                        name.includes('victoria') || name.includes('susan') ||
-                        name.includes('maria') || name.includes('carmen') ||
-                        name.includes('helen') || name.includes('monica') ||
-                        name.includes('paulina') || name.includes('kyoko') ||
-                        name.includes('sayaka') || name.includes('amara') ||
-                        name.includes('fiona') || name.includes('veena') ||
-                        name.includes('tessa') || name.includes('samantha') ||
-                        name.includes('anna') || name.includes('linda') ||
-                        name.includes('laura') || name.includes('nicole');
+        const lang = voice.lang.toLowerCase();
         
-        return isFemale || isNotMale;
+        // Check if it's a Google voice (usually contains "Google" in the name)
+        const isGoogleVoice = name.includes('google');
+        
+        // Check if it's English (en) or Spanish (es)
+        const isEnglish = lang.startsWith('en');
+        const isSpanish = lang.startsWith('es');
+        
+        return isGoogleVoice && (isEnglish || isSpanish);
       });
-      setVoices(femaleVoices.length > 0 ? femaleVoices : availableVoices);
+      
+      setVoices(filteredVoices.length > 0 ? filteredVoices : availableVoices);
     };
 
     // Load voices after a small delay to ensure they're available

@@ -5,8 +5,6 @@ import { Language } from './languageData';
 const languageCodes: Record<Language, string> = {
   english: 'en-US',
   spanish: 'es-ES',
-  french: 'fr-FR',
-  japanese: 'ja-JP',
 };
 
 export function useSpeech(selectedVoice?: SpeechSynthesisVoice | null) {

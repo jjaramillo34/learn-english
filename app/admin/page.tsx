@@ -6,7 +6,7 @@ import { useTheme } from '@/lib/useTheme';
 import { Sun, Moon, Users, BookOpen, TrendingUp, Clock, Globe } from 'lucide-react';
 
 export default function AdminPage() {
-  const router = useRouter();
+  useRouter();
   const { theme, toggleTheme } = useTheme();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTheme } from '@/lib/useTheme';
-import { Sun, Moon } from 'lucide-react';
+import { Sun, Moon, ChevronDown, ChevronUp, BookOpen, RotateCcw, Volume2, Shuffle, CheckCircle2, Grid3x3 } from 'lucide-react';
 
 export default function Page() {
   const router = useRouter();
@@ -11,6 +11,7 @@ export default function Page() {
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isInstructionsOpen, setIsInstructionsOpen] = useState(false);
 
   useEffect(() => {
     // Check if user is already logged in
@@ -135,6 +136,116 @@ export default function Page() {
           <p className="mt-4 text-xs text-center text-slate-500 dark:text-gray-400">
             Your progress will be saved automatically
           </p>
+        </div>
+
+        {/* How to Use Accordion */}
+        <div className="mt-6 bg-white/80 dark:bg-white/5 backdrop-blur-sm border border-slate-200 dark:border-white/10 rounded-2xl shadow-xl dark:shadow-none overflow-hidden">
+          <button
+            onClick={() => setIsInstructionsOpen(!isInstructionsOpen)}
+            className="w-full flex items-center justify-between p-4 sm:p-5 text-left hover:bg-slate-50 dark:hover:bg-white/5 transition-colors touch-manipulation"
+          >
+            <div className="flex items-center gap-3">
+              <BookOpen className="h-5 w-5 text-cyan-600 dark:text-cyan-400 flex-shrink-0" />
+              <h2 className="text-lg sm:text-xl font-semibold text-slate-800 dark:text-white">
+                How to Use This App
+              </h2>
+            </div>
+            {isInstructionsOpen ? (
+              <ChevronUp className="h-5 w-5 text-slate-600 dark:text-gray-400 flex-shrink-0" />
+            ) : (
+              <ChevronDown className="h-5 w-5 text-slate-600 dark:text-gray-400 flex-shrink-0" />
+            )}
+          </button>
+
+          {isInstructionsOpen && (
+            <div className="px-4 sm:px-5 pb-4 sm:pb-5 space-y-4 border-t border-slate-200 dark:border-white/10 pt-4">
+              <div className="space-y-4">
+                <div className="flex gap-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-cyan-100 dark:bg-cyan-900/30 flex items-center justify-center">
+                    <span className="text-cyan-600 dark:text-cyan-400 font-semibold text-sm">1</span>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-slate-800 dark:text-white mb-1">Create an Account</h3>
+                    <p className="text-sm text-slate-600 dark:text-gray-400">
+                      Enter a username (minimum 3 characters) to create your account. Your progress will be saved automatically.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
+                    <Grid3x3 className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-slate-800 dark:text-white mb-1">Select Categories</h3>
+                    <p className="text-sm text-slate-600 dark:text-gray-400">
+                      Choose which categories you want to study (Travel, Colors, Food & Drink, etc.). You can select multiple categories.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
+                    <RotateCcw className="h-4 w-4 text-purple-600 dark:text-purple-400" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-slate-800 dark:text-white mb-1">Flip Cards</h3>
+                    <p className="text-sm text-slate-600 dark:text-gray-400">
+                      Click on any flashcard to flip it and see the translation. The front shows the English phrase, and the back shows the translation in your target language.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                    <Volume2 className="h-4 w-4 text-green-600 dark:text-green-400" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-slate-800 dark:text-white mb-1">Listen to Pronunciation</h3>
+                    <p className="text-sm text-slate-600 dark:text-gray-400">
+                      Click the speaker icon to hear the full phrase pronounced, or click individual words at the bottom to hear them one by one. All voices are female by default.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center">
+                    <Shuffle className="h-4 w-4 text-pink-600 dark:text-pink-400" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-slate-800 dark:text-white mb-1">Shuffle Cards</h3>
+                    <p className="text-sm text-slate-600 dark:text-gray-400">
+                      Use the shuffle button to randomly jump to a different card and mix up your learning order.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center">
+                    <CheckCircle2 className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-slate-800 dark:text-white mb-1">Mark as Learned</h3>
+                    <p className="text-sm text-slate-600 dark:text-gray-400">
+                      Click "Mark as learned" when you've mastered a card. Your progress is tracked, and learned cards appear at the bottom as thumbnails for easy review.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                    <Sun className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-slate-800 dark:text-white mb-1">Customize Your Experience</h3>
+                    <p className="text-sm text-slate-600 dark:text-gray-400">
+                      Switch between light and dark themes using the theme toggle button. Change your learning language and voice preferences in the settings dropdowns.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
